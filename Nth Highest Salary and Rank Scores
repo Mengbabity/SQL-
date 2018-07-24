@@ -1,4 +1,4 @@
-找出第N高的工资。
+#找出第N高的工资。
 
 用到limit n,x//从第n个开始查询，查询x个
 
@@ -11,3 +11,10 @@ set N=N-1;
       from Employee order by Salary desc limit N,1     
   );
 END
+
+#分数排名
+
+select中的子查询
+
+select Score,(select count(distinct Score) from Scores where Score>=s.Score) as Rank 
+from Scores s order by Score desc
