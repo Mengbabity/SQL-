@@ -1,0 +1,21 @@
+#两表相连（join/,）
+1.等值连接 =
+2.非等值连接 between ... and ...
+3.join...using...(using后可跟着两表都有的属性进行筛选，实质指定等值连接中需要用到的列)
+4.join...on...(on后跟着额外条件) 可加and增加条件
+5.内连接只返回满足要求的值inner join
+6.外连接返回满足和不满足要求的值 outer join （where (+)）
+7.左/右连接，返回表中不满足条件的值 left/right join
+
+#叉集（即笛卡尔积）
+cross join
+
+#自然连接（多个表列名相等做等值连接）
+natural join
+
+LeetCode 175题 两张表，找出人及其对应地址（personId）
+
+select a.FirstName,a.LastName,b.City,b.State
+from Person a left join Address b //找出所有人，即使没有存地址
+on a.PersonId = b.PersonId;
+
