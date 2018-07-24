@@ -1,0 +1,6 @@
+1.并集 union all不去重union去重
+2.交集 intersect
+3.差集 minus
+select...
+union/intersect/minus
+select...
