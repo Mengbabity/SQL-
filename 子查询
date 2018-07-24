@@ -1,4 +1,40 @@
-1.in（存在即可）
+1.in（存在即可）/not in
 2.any（任意一个值比较）
 3.all（所有值）
  其后+子查询
+
+4.max,min,sum,avg,count,variance,stddev
+5.where...//数据集先筛选，再对结果集分组
+  group by...
+  having...//先分组再筛选
+
+Leetcode 184,185,596题
+184，找出每个部门的最大工资
+
+select d.name as Department,e.name as Employee,e.Salary
+from Employee e,department d
+where e.DepartmentId=d.Id and 
+     (DepartmentId,Salary) in (select DepartmentId,max(salary) from Employee group by DepartmentId)
+
+185，找出每个部门工资最高的前三
+
+select d.Name as Department,e.Name as Employee,e.Salary
+from Employee e,Department d
+where e.DepartmentId=d.Id and 
+      (select count(distinct Salary) from Employee where Salary>=e.Salary and DepartmentId=e.DepartmentId)<=3;
+      
+ 596,找出选课人数>=5的课程
+select class
+from courses 
+group by class
+having count(distinct student)>=5;
+
+6.(not) exist 返回true,false
+leetcode 183
+
+select a.name as Customers
+from Customers a
+where not exists (select * from Orders where a.Id=Orders.CustomerId)
+
+
+
