@@ -1,0 +1,14 @@
+找至少3个连续的人数超过100的日期。
+
+思路，逐条筛选，当该日期其后面两天满足要求（第一条），或者前一天和后一天满足要求（第二条），或者前面两天满足要求（第三条），就可以选择这一条数据。
+     即只与连续“3”条有关。
+
+select distinct s1.*
+from stadium s1,stadium s2,stadium s3
+where ((s1.id+1=s2.id and s1.id+2=s3.id) or
+      (s1.id-1=s2.id and s1.id+1=s3.id) or
+      (s1.id-1=s2.id and s1.id-2=s3.id)) and
+       s1.people>=100 and
+       s2.people>=100 and
+       s3.people>=100
+order by s1.Id;
