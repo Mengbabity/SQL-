@@ -1,0 +1,33 @@
+1.MySql和Oracle的日期转换
+  mysql中有2种日期格式DATE和TIME，oracle只有一种日期格式DATE。
+       oracle> select to_char(sysdate,'yyyy-mm-dd') from dual; 
+       oracle> select to_char(sysdate,'hh24-mi-ss') from dual; 
+       mysql> select date_format(now(),'%Y-%m-%d'); 
+       mysql> select time_format(now(),'%H-%i-%S');
+
+3.组函数规则不一样
+  mysql中组函数在select语句中可以随意使用。但在oracle中如果查询语句中有组函数，那其他列名必须是组函数处理过的，或者是group by子句中的列否则报错。
+  例如：oralce>select name,count(money) from user group by name;
+             mysql>select name,count(money) from user；
+
+4.自增长和序列
+  mysql有自增长类型，自增长列的值会依次自动增加，不需要操作。但oracle没有自增长类型，oracle有序列号，序列号需要手动添加才行。
+  oracle>create sequence customer_id_seq increment by 2 start with 1
+  oracle>create table customer(id int primary key not null, name varchar(15));
+  oracle>insert into customer values(customer_id_seq.curval, "name1"),(customer_id_seq.nextval, "name2");
+
+  mysql>create table customer(id int auto_increment primary key not null, name varchar(15));
+  mysql>insert into customer(name) values("name1"),("name2");
+
+5.引号的处理
+  mysql可以处理双引号和单引号包裹的字符串，而oarcle则只能处理是单引号包裹的字符串
+  oracle>select * from user where name='张三';
+  mysql>select * from user where name="张三";
+
+#6.分页
+  mysql的分页比较简单，可以用limit startNum,pageNum即指定起始位置和一页的数据量来实现。
+  oracle的分页则必须使用rownum来表明分页位置，而且rownum只能小于某值，不能大于某值，故而rownum和where联用才能完成数据范围的控制，
+  where<=页数<=rownum值。
+
+7.空字符串比较 
+  mysql中的空值内容可以是空字符串，但oracle的空值只能是null（不确定的意思），不能包含空字符串。
