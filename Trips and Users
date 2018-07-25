@@ -1,5 +1,7 @@
-
-四舍五入使用round(x,y),x为百分比，y为保留位数
+  SQL函数
+  1.trunc 截断 trunc(x,y)，y为截断位数
+  2.mod 取模
+3.四舍五入使用round(x,y),x为百分比，y为保留位数
 
 select t.Request_at as Day,round(sum(case when t.Status like 'cancelled_by_%' then 1 else 0 end)/count(*),2) as 'Cancellation Rate'
 from Trips t,Users u
